@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Sentiment YouTube</h1>
+    <button id="theme" title="Mode sombre/clair">🌙</button>
+  </header>
+  <button id="analyze">Analyser les commentaires</button>
+  <div id="status"></div>
+  <div id="stats"></div>
+  <div id="filters">
+    <button data-f="all" class="active">Tous</button>
+    <button data-f="1">Positif</button>
+    <button data-f="0">Neutre</button>
+    <button data-f="-1">Négatif</button>
+  </div>
+  <ul id="list"></ul>
+  <button id="copy">Copier les résultats</button>
+  <script src="popup.js"></script>
+</body>
+</html>
