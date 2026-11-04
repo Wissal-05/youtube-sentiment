@@ -1,0 +1,1 @@
+from src.api.main import app  # point d'entrée pour le déploiement
