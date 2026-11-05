@@ -6,6 +6,8 @@
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": [
     "https://www.youtube.com/*",
+    "https://*.youtube.com/*",
+    "https://*.app.github.dev/*",
     "http://localhost:8000/*",
     "http://127.0.0.1:8000/*",
     "https://*.hf.space/*"
