@@ -163,7 +163,7 @@ curl -X POST https://<nom>-7860.app.github.dev/predict_batch \
   -d '{"comments": ["I love this video", "This is terrible", "It is a video about cats"]}'
 ```
 
-Réponse (structure) :
+Réponse (exemple réel) :
 
 ```json
 {
@@ -172,20 +172,36 @@ Réponse (structure) :
       "text": "I love this video",
       "label": 1,
       "sentiment": "positive",
-      "confidence": 0.99,
-      "probabilities": {"negative": 0.0, "neutral": 0.01, "positive": 0.99}
+      "confidence": 0.9995,
+      "probabilities": {"negative": 0.0, "neutral": 0.0005, "positive": 0.9995}
+    },
+    {
+      "text": "This is terrible",
+      "label": -1,
+      "sentiment": "negative",
+      "confidence": 0.9999,
+      "probabilities": {"negative": 0.9999, "neutral": 0.0001, "positive": 0.0}
+    },
+    {
+      "text": "It is a video about cats",
+      "label": 0,
+      "sentiment": "neutral",
+      "confidence": 0.9639,
+      "probabilities": {"negative": 0.0279, "neutral": 0.9639, "positive": 0.0082}
     }
   ],
   "statistics": {
     "total": 3,
     "counts": {"positive": 1, "neutral": 1, "negative": 1},
     "percentages": {"positive": 33.3, "neutral": 33.3, "negative": 33.3},
-    "average_confidence": 0.95,
+    "average_confidence": 0.9878,
     "dominant_sentiment": "positive"
   },
-  "processing_time_ms": 2.9
+  "processing_time_ms": 1.33
 }
 ```
+
+(Réponse réelle de l'API déployée pour ces trois commentaires. Le temps de traitement est celui du serveur.)
 
 Règles de validation : de 1 à 1000 commentaires par requête, textes tronqués à 5000 caractères, au moins un commentaire non vide. Erreurs : `422` pour un batch vide, trop grand ou un format invalide (validation Pydantic) ; `503` si le modèle n'est pas chargé. La configuration CORS autorise les requêtes de l'extension Chrome.
 
