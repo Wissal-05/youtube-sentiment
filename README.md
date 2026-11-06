@@ -1,7 +1,8 @@
 # Analyse de sentiment des commentaires YouTube
 
 **TP3 : Projet ML complet, du développement au déploiement cloud**
-ENSAM Rabat, Université Mohammed V, filière INDIA (2026/27), Prof. Maria Zemzami
+ENSAM Rabat, Université Mohammed V, filière INDIA (2026/27), 
+Prof. Maria Zemzami
 Réalisé par **Wissal Elbidali**
 
 Système MLOps qui analyse automatiquement le sentiment (négatif, neutre, positif) des commentaires d'une vidéo YouTube : un modèle scikit-learn, une API FastAPI conteneurisée avec Docker et exécutée dans GitHub Codespaces, et une extension Chrome qui affiche les résultats.
@@ -212,3 +213,5 @@ Erreurs : `422` pour un batch vide ou un format invalide (validation Pydantic). 
 - Un Codespace est éphémère : pour une vraie mise en production, il faudrait un hébergement permanent (PaaS).
 
 Pistes : modèle multilingue ou transformer, dataset de commentaires YouTube, détection de spam, extraction avec défilement automatique, hébergement permanent.
+
+17h00
