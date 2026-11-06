@@ -39,6 +39,8 @@ Prédictions + statistiques  ──►  affichage dans le popup
 | Versioning | Git + GitHub |
 | Tests | pytest (24 tests) |
 
+![Architecture du système](docs/images/architecture.png)
+
 ## 3. Structure du dépôt
 
 ```
@@ -204,6 +206,8 @@ Réponse (exemple réel) :
 (Réponse réelle de l'API déployée pour ces trois commentaires. Le temps de traitement est celui du serveur.)
 
 Règles de validation : de 1 à 1000 commentaires par requête, textes tronqués à 5000 caractères, au moins un commentaire non vide. Erreurs : `422` pour un batch vide, trop grand ou un format invalide (validation Pydantic) ; `503` si le modèle n'est pas chargé. La configuration CORS autorise les requêtes de l'extension Chrome.
+
+![Requête POST /predict_batch sur l'API déployée](docs/images/predict-batch.png)
 
 ## 8. Installation de l'extension Chrome
 
