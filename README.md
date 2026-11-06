@@ -1,8 +1,7 @@
 # Analyse de sentiment des commentaires YouTube
 
 **TP3 : Projet ML complet, du développement au déploiement cloud**
-ENSAM Rabat, Université Mohammed V, filière INDIA (2026/27), 
-Prof. Maria Zemzami
+ENSAM Rabat, Université Mohammed V, filière INDIA (2026/27), Prof. Maria Zemzami
 Réalisé par **Wissal Elbidali**
 
 Système MLOps qui analyse automatiquement le sentiment (négatif, neutre, positif) des commentaires d'une vidéo YouTube : un modèle scikit-learn, une API FastAPI conteneurisée avec Docker et exécutée dans GitHub Codespaces, et une extension Chrome qui affiche les résultats.
@@ -57,13 +56,13 @@ youtube-sentiment/
 │   ├── sentiment_model.joblib
 │   └── tfidf_vectorizer.joblib
 ├── src/
-│   ├── data/                 # Téléchargement, prétraitement, split
-│   ├── models/               # Baseline, entraînement, prédiction
-│   ├── api/                  # Application FastAPI, schémas Pydantic
-│   └── utils/                # Nettoyage de texte
-├── chrome-extension/         # manifest.json, content.js, popup.html, popup.js
+│   ├── data/                 # download_data.py, preprocess.py (nettoyage, EDA, split)
+│   ├── models/               # baseline.py, train.py (comparaison, GridSearchCV, sauvegarde)
+│   ├── api/                  # main.py (FastAPI), schemas.py (Pydantic), predictor.py
+│   └── utils/                # text_cleaning.py
+├── chrome-extension/         # manifest.json, content.js, popup.html, popup.css, popup.js
 ├── tests/                    # test_model.py, test_api.py
-├── reports/                  # Graphiques (EDA, matrice de confusion)
+├── reports/                  # eda.png, confusion_matrix.png, performance_report.md
 └── logs/
 ```
 
@@ -169,17 +168,26 @@ Réponse (structure) :
 ```json
 {
   "predictions": [
-    {"text": "I love this video", "label": 1, "sentiment": "positive", "confidence": 0.99}
+    {
+      "text": "I love this video",
+      "label": 1,
+      "sentiment": "positive",
+      "confidence": 0.99,
+      "probabilities": {"negative": 0.0, "neutral": 0.01, "positive": 0.99}
+    }
   ],
   "statistics": {
+    "total": 3,
     "counts": {"positive": 1, "neutral": 1, "negative": 1},
-    "percentages": {"positive": 33.3, "neutral": 33.3, "negative": 33.3}
+    "percentages": {"positive": 33.3, "neutral": 33.3, "negative": 33.3},
+    "average_confidence": 0.95,
+    "dominant_sentiment": "positive"
   },
   "processing_time_ms": 2.9
 }
 ```
 
-Erreurs : `422` pour un batch vide ou un format invalide (validation Pydantic). La configuration CORS autorise les requêtes de l'extension Chrome.
+Règles de validation : de 1 à 1000 commentaires par requête, textes tronqués à 5000 caractères, au moins un commentaire non vide. Erreurs : `422` pour un batch vide, trop grand ou un format invalide (validation Pydantic) ; `503` si le modèle n'est pas chargé. La configuration CORS autorise les requêtes de l'extension Chrome.
 
 ## 8. Installation de l'extension Chrome
 
@@ -202,7 +210,7 @@ Erreurs : `422` pour un batch vide ou un format invalide (validation Pydantic). 
 
 ## 10. Tests et validation
 
-24 tests automatisés (`pytest`) : performance sur le jeu de test, cas limites (texte vide, très long, emojis, arabe, mélange de langues, URL), temps d'inférence, endpoint `/health`, batchs de différentes tailles, batch vide, payload invalide, en-tête CORS. Les tests de l'extension et d'intégration (flux complet extension → API cloud) sont documentés dans le rapport technique.
+24 tests automatisés (`pytest`) : performance sur le jeu de test, cas limites (texte vide, très long, emojis, arabe, mélange de langues, URL), temps d'inférence, endpoint `/health`, batchs de différentes tailles, batch vide, payload invalide, en-tête CORS. Les deux tests de performance sur le jeu de test (accuracy, F1) nécessitent `data/processed/test.csv` : ils sont ignorés sur un clone neuf tant que le pipeline de données n'a pas été exécuté (section 5). Les tests de l'extension et d'intégration (flux complet extension → API cloud) sont documentés dans le rapport technique.
 
 ## 11. Limites et améliorations possibles
 
@@ -213,5 +221,3 @@ Erreurs : `422` pour un batch vide ou un format invalide (validation Pydantic). 
 - Un Codespace est éphémère : pour une vraie mise en production, il faudrait un hébergement permanent (PaaS).
 
 Pistes : modèle multilingue ou transformer, dataset de commentaires YouTube, détection de spam, extraction avec défilement automatique, hébergement permanent.
-
-17h00

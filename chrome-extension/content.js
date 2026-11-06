@@ -1,9 +1,11 @@
 function extractComments(limit = 200) {
   const nodes = document.querySelectorAll(
-    "ytd-comment-thread-renderer #content-text"
+    "ytd-comment-thread-renderer #content-text, ytd-comment-view-model #content-text"
   );
 
   const comments = Array.from(nodes)
+    // On écarte les réponses (threads) : seuls les commentaires principaux sont analysés
+    .filter(node => !node.closest("ytd-comment-replies-renderer"))
     .map(node => node.innerText.trim())
     .filter(text => text.length > 0);
 
@@ -14,7 +16,7 @@ function extractComments(limit = 200) {
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === "extract") {
     try {
-      const comments = extractComments(200);
+      const comments = extractComments(msg.max || 200);
       sendResponse({ comments });
     } catch (error) {
       sendResponse({

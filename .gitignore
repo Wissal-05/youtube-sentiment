@@ -1,7 +1,15 @@
+# Environnements et caches Python
 venv/
-_pycache_/
+.venv/
+__pycache__/
 *.pyc
+.pytest_cache/
 .env
-logs/
-data/raw/
-data/processed/
+
+# Logs et données : on garde les dossiers (.gitkeep) mais pas leur contenu
+logs/*
+!logs/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
