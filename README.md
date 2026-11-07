@@ -39,7 +39,7 @@ Prédictions + statistiques  ──►  affichage dans le popup
 | Versioning | Git + GitHub |
 | Tests | pytest (24 tests) |
 
-![Architecture du système](docs/images/architecture.png)
+
 
 ## 3. Structure du dépôt
 
@@ -140,9 +140,7 @@ pytest -v -s
 
 > **Attention** : l'URL n'est active que tant que le Codespace est allumé (arrêt automatique après environ 30 minutes d'inactivité). Après un redémarrage, il faut parfois reconstruire l'image (`docker build`), relancer le conteneur et vérifier que le port est toujours public.
 
-![Onglet Ports : port 7860 public](docs/images/ports.png)
-![Réponse de /health sur l'URL publique](docs/images/health.png)
-![Onglet Ports et /docs](docs/images/api-deployee.png)
+
 
 ## 7. Documentation de l'API
 
@@ -209,7 +207,7 @@ Réponse (exemple réel) :
 
 Règles de validation : de 1 à 1000 commentaires par requête, textes tronqués à 5000 caractères, au moins un commentaire non vide. Erreurs : `422` pour un batch vide, trop grand ou un format invalide (validation Pydantic) ; `503` si le modèle n'est pas chargé. La configuration CORS autorise les requêtes de l'extension Chrome.
 
-![Requête POST /predict_batch sur l'API déployée](docs/images/predict-batch.png)
+
 
 ## 8. Installation de l'extension Chrome
 
