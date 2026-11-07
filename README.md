@@ -140,6 +140,8 @@ pytest -v -s
 
 > **Attention** : l'URL n'est active que tant que le Codespace est allumé (arrêt automatique après environ 30 minutes d'inactivité). Après un redémarrage, il faut parfois reconstruire l'image (`docker build`), relancer le conteneur et vérifier que le port est toujours public.
 
+![Onglet Ports : port 7860 public](docs/images/ports.png)
+![Réponse de /health sur l'URL publique](docs/images/health.png)
 ![Onglet Ports et /docs](docs/images/api-deployee.png)
 
 ## 7. Documentation de l'API
@@ -241,3 +243,4 @@ Règles de validation : de 1 à 1000 commentaires par requête, textes tronqués
 - Un Codespace est éphémère : pour une vraie mise en production, il faudrait un hébergement permanent (PaaS).
 
 Pistes : modèle multilingue ou transformer, dataset de commentaires YouTube, détection de spam, extraction avec défilement automatique, hébergement permanent.
+
